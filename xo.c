@@ -2,20 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-char board[9] =
-{
-    ' ', ' ', ' ',
-    ' ', ' ', ' ',
-    ' ', ' ', ' '
-};
-
-typedef enum _pos {
-    pos1 = 0, pos2 = 1, pos3 = 2,
-    pos4 = 3, pos5 = 4, pos6 = 5,
-    pos7 = 6, pos8 = 7, pos9 = 8
-} pos;
-
-char board_display[] =
+char board[] =
 "\
 +---+---+---+\n\
 |   |   |   |\n\
@@ -26,18 +13,15 @@ char board_display[] =
 +---+---+---+\
 ";
 
+typedef enum _pos {
+    pos1 = 16, pos2 = 20, pos3 = 24,
+    pos4 = 44, pos5 = 48, pos6 = 52,
+    pos7 = 72, pos8 = 76, pos9 = 80
+} pos;
+
 void display_board() {
     puts("Current Board");
-    board_display[16] = board[pos1];
-    board_display[20] = board[pos2];
-    board_display[24] = board[pos3];
-    board_display[44] = board[pos4];
-    board_display[48] = board[pos5];
-    board_display[52] = board[pos6];
-    board_display[72] = board[pos7];
-    board_display[76] = board[pos8];
-    board_display[80] = board[pos9];
-    puts(board_display);
+    puts(board);
 }
 
 char cur_player = 'X';
