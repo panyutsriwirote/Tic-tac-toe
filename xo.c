@@ -102,7 +102,7 @@ bool connect(pos x, pos y, pos z) {
     return board[x] != ' ' && board[x] == board[y] && board[y] == board[z];
 }
 
-bool game_over() {
+bool player_win() {
     if (
         connect(pos1, pos2, pos3)
         ||
@@ -128,17 +128,26 @@ bool game_over() {
 
 // Game result
 typedef enum _res {
-    over, not_over
+    win, not_over, draw
 } res;
 
 res play(pos position) {
-    board[position] = cur_player;
-    display_board();
-    if (game_over()) {
-        return over;
+    static int remaining_slot = 9;
+    if (board[position] != ' ') {
+        puts("Slot taken, please enter another move");
+        return not_over;
     }
-    switch_player();
-    return not_over;
+    board[position] = cur_player;
+    remaining_slot--;
+    display_board();
+    if (player_win()) {
+        return win;
+    } else if (remaining_slot == 0) {
+        return draw;
+    } else {
+        switch_player();
+        return not_over;
+    }
 }
 
  int main() {
@@ -148,6 +157,10 @@ res play(pos position) {
         pos position = get_position();
         result = play(position);
     } while (result == not_over);
-    printf("Game ended, %c wins!", cur_player);
+    if (result == win) {
+        printf("Game ended, %c wins!", cur_player);
+    } else {
+        fputs("Draw, no one wins...", stdout);
+    }
     return EXIT_SUCCESS;
  }
