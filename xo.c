@@ -13,24 +13,15 @@ char board[] =
 +---+---+---+\
 ";
 
-typedef enum _pos {
+typedef enum {
     pos1 = 16, pos2 = 20, pos3 = 24,
     pos4 = 44, pos5 = 48, pos6 = 52,
     pos7 = 72, pos8 = 76, pos9 = 80
 } pos;
 
-void display_board() {
-    puts("Current Board");
-    puts(board);
-}
-
 char cur_player = 'X';
 void switch_player() {
-    if (cur_player == 'X') {
-        cur_player = 'O';
-    } else {
-        cur_player = 'X';
-    }
+    cur_player = (cur_player == 'X') ? 'O' : 'X';
 }
 
 pos get_position() {
@@ -88,20 +79,13 @@ bool connect(pos x, pos y, pos z) {
 
 bool player_win() {
     if (
-        connect(pos1, pos2, pos3)
-        ||
-        connect(pos4, pos5, pos6)
-        ||
-        connect(pos7, pos8, pos9)
-        ||
-        connect(pos1, pos4, pos7)
-        ||
-        connect(pos2, pos5, pos8)
-        ||
-        connect(pos3, pos6, pos9)
-        ||
-        connect(pos1, pos5, pos9)
-        ||
+        connect(pos1, pos2, pos3) ||
+        connect(pos4, pos5, pos6) ||
+        connect(pos7, pos8, pos9) ||
+        connect(pos1, pos4, pos7) ||
+        connect(pos2, pos5, pos8) ||
+        connect(pos3, pos6, pos9) ||
+        connect(pos1, pos5, pos9) ||
         connect(pos3, pos5, pos7)
     ) {
         return true;
@@ -111,7 +95,7 @@ bool player_win() {
 }
 
 // Game result
-typedef enum _res {
+typedef enum {
     win, not_over, draw
 } res;
 
@@ -123,7 +107,7 @@ res play(pos position) {
     }
     board[position] = cur_player;
     remaining_slot--;
-    display_board();
+    puts(board);
     if (player_win()) {
         return win;
     } else if (remaining_slot == 0) {
@@ -135,7 +119,7 @@ res play(pos position) {
 }
 
  int main() {
-    display_board();
+    puts(board);
     res result;
     do {
         pos position = get_position();
