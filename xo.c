@@ -126,9 +126,9 @@ res play(pos position) {
         result = play(position);
     } while (result == not_over);
     if (result == win) {
-        printf("Game ended, %c wins!", cur_player);
+        printf("Game ended, %c wins!\n", cur_player);
     } else {
-        fputs("Draw, no one wins...", stdout);
+        fputs("Draw, no one wins...\n", stdout);
     }
     return EXIT_SUCCESS;
  }
