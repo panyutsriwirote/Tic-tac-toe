@@ -24,10 +24,12 @@ void switch_player() {
     cur_player = (cur_player == 'X') ? 'O' : 'X';
 }
 
+#define clear_stdin while(getchar() != '\n') continue
+
 pos get_position() {
     static char buffer[3];
     static char *status;
-    input:
+    while (true) {
         printf("%c's move: ", cur_player);
         status = fgets(buffer, 3, stdin);
         if (status == NULL) {
@@ -37,39 +39,38 @@ pos get_position() {
         // Nothing is entered
         if (buffer[0] == '\n') {
             puts("Please enter a valid move (1-9)");
-            goto input;
+            continue;
         }
         // Input is longer than 1 character
         if (buffer[1] != '\n') {
             puts("Please enter a valid move (1-9)");
             // Drain stdin
-            while (getchar() != '\n') {
-                continue;
-            }
-            goto input;
+            clear_stdin;
+           continue;
         }
-    switch (buffer[0]) {
-        case '1':
-            return pos1;
-        case '2':
-            return pos2;
-        case '3':
-            return pos3;
-        case '4':
-            return pos4;
-        case '5':
-            return pos5;
-        case '6':
-            return pos6;
-        case '7':
-            return pos7;
-        case '8':
-            return pos8;
-        case '9':
-            return pos9;
-        default:
-            puts("Please enter a valid move (1-9)");
-            goto input;
+        switch (buffer[0]) {
+            case '1':
+                return pos1;
+            case '2':
+                return pos2;
+            case '3':
+                return pos3;
+            case '4':
+                return pos4;
+            case '5':
+                return pos5;
+            case '6':
+                return pos6;
+            case '7':
+                return pos7;
+            case '8':
+                return pos8;
+            case '9':
+                return pos9;
+            default:
+                puts("Please enter a valid move (1-9)");
+                continue;
+        }
     }
 }
 
