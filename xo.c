@@ -33,7 +33,7 @@ pos get_position() {
         printf("%c's move: ", cur_player);
         status = fgets(buffer, 3, stdin);
         if (status == NULL) {
-            fputs("An error occured!", stderr);
+            fputs("An error occured!\n", stderr);
             exit(EXIT_FAILURE);
         }
         // Nothing is entered
@@ -129,7 +129,7 @@ res play(pos position) {
     if (result == win) {
         printf("Game ended, %c wins!\n", cur_player);
     } else {
-        fputs("Draw, no one wins...\n", stdout);
+        puts("Draw, no one wins...");
     }
     return EXIT_SUCCESS;
  }
