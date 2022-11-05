@@ -13,7 +13,7 @@ char board[] =
 +---+---+---+\
 ";
 
-typedef enum {
+typedef enum _pos {
     pos1 = 16, pos2 = 20, pos3 = 24,
     pos4 = 44, pos5 = 48, pos6 = 52,
     pos7 = 72, pos8 = 76, pos9 = 80
@@ -46,7 +46,7 @@ pos get_position() {
             puts("Please enter a valid move (1-9)");
             // Drain stdin
             clear_stdin;
-           continue;
+            continue;
         }
         switch (buffer[0]) {
             case '1':
@@ -96,7 +96,7 @@ bool player_win() {
 }
 
 // Game result
-typedef enum {
+typedef enum _res {
     win, not_over, draw
 } res;
 
